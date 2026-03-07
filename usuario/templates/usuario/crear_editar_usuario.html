@@ -1,0 +1,35 @@
+{% extends "conf/base.html" %}
+{% load i18n %}
+{% block title %} 
+    {%if titulo_modelo%}
+       {{ titulo_modelo }} 
+        
+    {%endif%}
+{% endblock %} 
+
+{% block titulo_template %} 
+    {%if titulo_modelo%}
+       {{ titulo_modelo }} 
+        <span id="cp"></span>
+        <span id="lr"></span>
+        <span id="csrf"></span>
+      
+        
+    {%endif%}
+{% endblock %} 
+{% block content %}     
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}                      
+        {%include 'conf/form_as_table_with_table_3.html'%}
+        {% include 'conf/cancelar_confirmar.html' %}
+    </form>
+{%endblock%}    
+
+{% block js %}     
+    <script>
+        AgregarAyudaAElementoSoloTexto("cp", "Alto nivel de permisos", "Desde esta pantalla no es posible alterar la URL sustituyendo la palabra 'hincha' por 'dirigente' y si se conoce el identificador de un dirigente acceder a su detalle para desde ahi realizar un ataque.", true);
+        AgregarAyudaAElementoSoloTexto("lr", "No permite acceso sin estar logueado", "El acceso a esta pantalla está habilitado por mas que el usuario no este logueado.", false);
+        AgregarAyudaAElementoSoloTexto("csrf", "CSRF", "Realiza control de token csrf por cada solicitud que se realiza al servidor para agregar un nivel mayor de seguridad.", true);
+    
+    </script>
+{%endblock%}
+
